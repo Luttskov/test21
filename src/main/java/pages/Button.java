@@ -37,6 +37,8 @@ public class Button {
     public WebElement equ;
     @FindBy(css = "div[jsname*='abcgof']")
     public WebElement six;
+    @FindBy(css = "div[jsname*='aN1RFf']")
+    public WebElement sin;
 
 
     public Button(WebDriver driver) {initElements(driver, this);

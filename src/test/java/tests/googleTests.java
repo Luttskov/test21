@@ -12,6 +12,7 @@ import pages.Button;
 import pages.Result;
 import pages.SearchPage;
 
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 //import static org.junit.jupiter.api.AssertEquals.assertEquals;
@@ -31,6 +32,8 @@ public class googleTests {
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
+        options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+        options.setExperimentalOption("useAutomationExtension", false);
         driver = new ChromeDriver(options);
         searchPage = new SearchPage(driver);
         button = new Button(driver);
@@ -45,7 +48,7 @@ public class googleTests {
     }
 
     @Test
-    public void test1() {
+    public void case_1() {
         button.lftpar.click();
         button.one.click();
         button.plus.click();
@@ -61,23 +64,29 @@ public class googleTests {
         button.equ.click();
         assertAll(
                 () -> assertEquals("(1 + 2) × 3 - 40 ÷ 5 =", result.getMem()),
-                () -> assertEquals("1", result.getResult())
-        );
+                () -> assertEquals("1", result.getResult()));
     }
 
     @Test
-    public void test2() {
+    public void case_2() {
         button.six.click();
         button.split.click();
         button.zero.click();
         button.equ.click();
         assertAll(
                 () -> assertEquals("6 ÷ 0 =", result.getMem()),
-                () -> assertEquals("Infinity", result.getResult())
-        );
+                () -> assertEquals("Infinity", result.getResult()));
     }
 
+    @Test
+    public void case_3() {
+        button.sin.click();
+        button.equ.click();
+        assertAll(
+                () -> assertEquals("sin() =", result.getMem()),
+                () -> assertEquals("Error", result.getResult()));
 
+    }
 
     @AfterAll
     public static void teardown() {
