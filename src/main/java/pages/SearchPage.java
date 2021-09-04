@@ -12,8 +12,7 @@ public class SearchPage {
     @FindBy(css = "input.gLFyf.gsfi")
     private WebElement SearchInput;
 
-    public SearchPage(WebDriver driver) {
-        initElements(driver, this);
+    public SearchPage(WebDriver driver) {initElements(driver, this);
     }
 
     public void search(String text) {
